@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Result</title>
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 500px; text-align: center; }
+        .success-icon { background-color: #10b981; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; margin: 0 auto 1.5rem auto; }
+        h1 { color: #1f2937; margin-bottom: 0.5rem; font-weight: 600; font-size: 1.75rem; }
+        .subtitle { color: #6b7280; margin-bottom: 2rem; }
+        .result-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 1.5rem; text-align: left; }
+        .result-item { padding: 1rem 1.25rem; border-bottom: 1px solid #e5e7eb; }
+        .result-item:last-child { border-bottom: none; }
+        .result-item strong { display: block; color: #6b7280; margin-bottom: 0.25rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+        .result-item p { margin: 0; color: #111827; font-size: 1rem; }
+        .back-link { display: inline-flex; align-items: center; padding: 0.75rem 1.5rem; background-color: #f3f4f6; color: #4b5563; text-decoration: none; border-radius: 8px; font-weight: 500; transition: background-color 0.2s, color 0.2s; }
+        .back-link:hover { background-color: #e5e7eb; color: #111827; }
+        .back-link span { margin-right: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">&#10003;</div>
+        <h1>Message Sent!</h1>
+        <p class="subtitle">Thank you for reaching out. Here is the data we received:</p>
+        
+        <div class="result-card">
+            <div class="result-item">
+                <strong>Name</strong>
+                <p><%= name %></p>
+            </div>
+            <div class="result-item">
+                <strong>Email</strong>
+                <p><%= email %></p>
+            </div>
+            <div class="result-item">
+                <strong>Message</strong>
+                <p><%= message %></p>
+            </div>
+        </div>
+        
+        <a href="/" class="back-link"><span>&larr;</span> Go Back to Form</a>
+    </div>
+</body>
+</html>
