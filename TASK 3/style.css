@@ -1,0 +1,188 @@
+/* Step 2: Experiment with CSS properties for advanced styling (transitions, animations) */
+
+/* General Styles */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 80vh;
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1920&q=80') center/cover;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Keyframe Animations */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.7);
+    }
+
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(13, 110, 253, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
+    }
+}
+
+/* Applying Animations */
+.slide-up {
+    opacity: 0;
+    /* Starting state for animation */
+    animation: slideUp 0.8s ease-out forwards;
+}
+
+.delay-1 {
+    animation-delay: 0.3s;
+}
+
+.delay-2 {
+    animation-delay: 0.6s;
+}
+
+.animate-fade-in {
+    animation: fadeIn 1.5s ease-in forwards;
+}
+
+.pulse-btn {
+    animation: pulse 2s infinite;
+}
+
+/* Feature Cards with Transitions */
+.feature-card {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    cursor: pointer;
+}
+
+.feature-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.icon-box {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s ease, background-color 0.5s ease;
+}
+
+.feature-card:hover .icon-box {
+    transform: rotateY(360deg);
+}
+
+/* Gallery Grid with Overlay and Transitions */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.gallery-item img {
+    transition: transform 0.6s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-item .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.gallery-item:hover .overlay {
+    opacity: 1;
+}
+
+.overlay-text {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transform: translateY(20px);
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover .overlay-text {
+    transform: translateY(0);
+}
+
+/* Footer Link Transitions */
+.transition-all {
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+.hover-text-white:hover {
+    color: #fff !important;
+    transform: translateY(-3px);
+}
+
+/* --- Added for Task Execution --- */
+
+/* SPA Routing Styles */
+.page-section {
+    display: none;
+    animation: fadeIn 0.5s ease-in forwards;
+}
+
+.page-section.active {
+    display: block;
+}
+
+/* Display block for header because it might need flex in active state */
+header.page-section.active {
+    display: flex;
+}
+
+/* Form Transitions */
+.progress-bar {
+    transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.password-strength-meter {
+    transition: all 0.3s ease;
+}

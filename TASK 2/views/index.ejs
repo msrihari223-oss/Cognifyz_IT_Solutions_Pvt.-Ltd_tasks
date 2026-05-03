@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Registration</title>
+    <!-- Use Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Inline styles as requested in Task 2 -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #4f46e5;
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-group input {
+            margin-right: 0.75rem;
+            width: 18px;
+            height: 18px;
+            accent-color: #4f46e5;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: none; /* Hidden by default */
+        }
+        
+        .server-errors {
+            background-color: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .server-errors ul {
+            margin-left: 1.5rem;
+            color: #b91c1c;
+            font-size: 0.9rem;
+        }
+        
+        .server-errors p {
+            color: #b91c1c;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Create Account</h2>
+    <p class="subtitle">Join our professional community today.</p>
+
+    <% if (errors && errors.length > 0) { %>
+        <div class="server-errors">
+            <p>Please fix the following errors:</p>
+            <ul>
+                <% errors.forEach(function(error) { %>
+                    <li><%= error %></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
+
+    <!-- Inline JS validation function is attached to onsubmit -->
+    <form action="/submit" method="POST" id="registrationForm" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" value="<%= formData.fullName || '' %>" placeholder="John Doe">
+            <div id="nameError" class="error-message">Name must be at least 3 characters.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" value="<%= formData.email || '' %>" placeholder="john@example.com">
+            <div id="emailError" class="error-message">Please enter a valid email address.</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" value="<%= formData.age || '' %>" placeholder="18">
+            <div id="ageError" class="error-message">You must be at least 18 years old.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Min. 8 characters">
+            <div id="passwordError" class="error-message">Password must be at least 8 characters.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat password">
+            <div id="confirmPasswordError" class="error-message">Passwords do not match.</div>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="terms" name="terms">
+            <label for="terms">I agree to the Terms and Conditions</label>
+        </div>
+        <div id="termsError" class="error-message" style="margin-top: -1rem; margin-bottom: 1rem;">You must agree to the terms.</div>
+
+        <button type="submit">Register Now</button>
+    </form>
+</div>
+
+<!-- Inline JavaScript for Client-Side Validation as requested -->
+<script>
+    function validateForm() {
+        let isValid = true;
+        
+        // Reset all error messages
+        const errorElements = document.querySelectorAll('.error-message');
+        errorElements.forEach(el => el.style.display = 'none');
+        
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(el => el.style.borderColor = '#e2e8f0');
+
+        // Get form values
+        const name = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const age = document.getElementById('age').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const terms = document.getElementById('terms').checked;
+
+        // Validation Rules
+        if (name.length < 3) {
+            showError('fullName', 'nameError');
+            isValid = false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showError('email', 'emailError');
+            isValid = false;
+        }
+
+        if (!age || age < 18) {
+            showError('age', 'ageError');
+            isValid = false;
+        }
+
+        if (password.length < 8) {
+            showError('password', 'passwordError');
+            isValid = false;
+        }
+
+        if (password !== confirmPassword || confirmPassword === '') {
+            showError('confirmPassword', 'confirmPasswordError');
+            isValid = false;
+        }
+
+        if (!terms) {
+            document.getElementById('termsError').style.display = 'block';
+            isValid = false;
+        }
+
+        return isValid; // If false, prevents form submission
+    }
+
+    function showError(inputId, errorId) {
+        document.getElementById(inputId).style.borderColor = '#ef4444';
+        document.getElementById(errorId).style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
